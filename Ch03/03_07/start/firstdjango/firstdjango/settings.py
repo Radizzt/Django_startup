@@ -104,5 +104,5 @@ STATIC_URL = '/static/'
 
 #tell djangle to look for a static folder under firstdjango
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'firstdjango', 'static'),
+    os.path.join(BASE_DIR, 'firstdjango', 'garbage'),
 )
