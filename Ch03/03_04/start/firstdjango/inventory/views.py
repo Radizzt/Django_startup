@@ -1,8 +1,21 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import Http404
+
+from inventory.models import Item;
 
 def index(request):
-	return HttpResponse('<p>In index view</p>')
+	items = Item.objects.exclude(amount=0);
+	#render(request, <view file>, <dictionary query set>)
+	return render(request, "inventory/index.html", {
+		"items": items,
+		});
 
 def item_detail(request, id):
-	return HttpResponse('<p>In item_detail view with id {0}</p>'.format(id))
+	#if item id doesnt exist raise an error with Http404 object
+	try:
+		item = Item.objects.get(id=id);
+	except Item.DoesNotExist:
+		raise Http404("th is item does not exist");
+	return render(request, "inventory/item_detail.html", {
+		"item": item,
+		})
